@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroCookie Test</title>
+    <script src="../export/microcookie-min.js"></script>
+    <script>
+
+        function showCookie() {
+            let cookie = 'test'
+
+            alert(MicroCookie.get(cookie))
+        }
+
+        function addCookie() {
+            let cookie = 'test'
+            let value = 'this is a test!'
+            let days = 1
+
+            let expiration = MicroCookie.makeExpiration(days)
+            MicroCookie.set(cookie, value, expiration)
+
+            //show timestamp & new cookie values.
+            console.log(expiration)
+            console.log(document.cookie)
+        }
+
+        function deleteCookie() {
+            let cookie = 'test'
+
+            MicroCookie.remove(cookie)
+        }
+
+    </script>
+</head>
+
+<body>
+    <p>This page is an test integration for the MicroCookie JS library.</p>
+    <button onclick="showCookie()">Show "test" cookie</button>
+    <button onclick="addCookie()">Add "test" cookie expiring in 1 day</button>
+    <button onclick="deleteCookie()">Delete "test" cookie</button>
+</body>
+
+</html>

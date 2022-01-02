@@ -1,0 +1,30 @@
+{
+  "name": "microcookie",
+  "version": "1.0.0",
+  "description": "A minuscule cookie library. Nothing but bones. Does not currently support paths.",
+  "main": "microcookie.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10Nates/microcookie.git"
+  },
+  "keywords": [
+    "cookie",
+    "cookies",
+    "manager",
+    "library",
+    "browser",
+    "js",
+    "client",
+    "simple",
+    "small",
+    "tiny",
+    "micro",
+    "mini"
+  ],
+  "author": "Nathan Hedge (10Nates)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/10Nates/microcookie/issues"
+  },
+  "homepage": "https://github.com/10Nates/microcookie#readme"
+}
