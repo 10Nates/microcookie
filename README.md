@@ -38,7 +38,7 @@ MicroCookie is not currently designed for npm (even though I have the package.js
 
 ```html
 <!-- Stored locally -->
-<script src="microcookie.js"></script>
+<script src="microcookie-min.js"></script>
 
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
@@ -130,4 +130,4 @@ MicroCookie.remove("test")
 
 ### Full examples
 
-A the time of writing, there is one full example, which is available in the [`test/`](./test/testpage.html) folder as [`test/testpage.html`](./test/testpage.html)
+A the time of writing, there is one full example, which is available in the [`test/`](./test/) folder as [`test/testpage.html`](./test/testpage.html)
