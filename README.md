@@ -48,6 +48,9 @@ MicroCookie is not currently designed for npm (even though I have the package.js
 
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
+
+<!-- Stored on jsDelivr -->
+<script src="https://cdn.jsdelivr.net/gh/10Nates/microcookie@main/export/microcookie-min.js"></script>
 ```
 
 <br>
