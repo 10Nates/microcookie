@@ -9,17 +9,11 @@
     <script src="../export/microcookie-min.js"></script>
     <script>
 
-        function showCookie() {
-            let cookie = 'test'
-
+        function showCookie(cookie) {
             alert(MicroCookie.get(cookie))
         }
 
-        function addCookie() {
-            let cookie = 'test'
-            let value = 'this is a test!'
-            let days = 1
-
+        function addCookie(cookie, value, days) {
             let expiration = MicroCookie.makeExpiration(days)
             MicroCookie.set(cookie, value, expiration)
 
@@ -28,9 +22,7 @@
             console.log(document.cookie)
         }
 
-        function deleteCookie() {
-            let cookie = 'test'
-
+        function deleteCookie(cookie) {
             MicroCookie.remove(cookie)
         }
 
@@ -39,9 +31,14 @@
 
 <body>
     <p>This page is an test integration for the MicroCookie JS library.</p>
-    <button onclick="showCookie()">Show "test" cookie</button>
-    <button onclick="addCookie()">Add "test" cookie expiring in 1 day</button>
-    <button onclick="deleteCookie()">Delete "test" cookie</button>
+    <button onclick="showCookie('test')">Show "test" cookie</button>
+    <button onclick="showCookie('test2')">Show "test2" cookie</button>
+    <br>
+    <button onclick="addCookie('test', 'this is a test!', 1)">Add "test" cookie expiring in 1 day</button>
+    <button onclick="addCookie('test2', 'this is another test!', 2)">Add "test2" cookie expiring in 2 days</button>
+    <br>
+    <button onclick="deleteCookie('test')">Delete "test" cookie</button>
+    <button onclick="deleteCookie('test2')">Delete "test2" cookie</button>
 </body>
 
 </html>

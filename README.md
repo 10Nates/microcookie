@@ -22,6 +22,12 @@ Every "simple" cookie manager I could find was kilobytes in size with a bunch of
 
 <br>
 
+### Why do you use "expires" instead of "max-age"?
+
+It boils down to compatibility. Not every browser supports max-age, and some browsers throw a fit if both are given. Does it really matter in this day and age? Not really, but I've already made my decision unless something big happens.
+
+<br>
+
 ### NOTICE
 
 MicroCookie does not currently support paths. It may or may not support paths in the future.
@@ -50,7 +56,7 @@ MicroCookie is not currently designed for npm (even though I have the package.js
 
 The arguments I used for uglifyjs were
 
-> `uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\[key,value,path,expiration,days,weeks,months,years\]`
+> `uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\[key,value,path,exp,d,w,m,y\] --comments -c passes=3`
 
 <br>
 
