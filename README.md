@@ -1,6 +1,6 @@
 # MicroCookie
 
-[About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie)
+[About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie) | [No More Noodles](https://www.npmjs.com/package/microcookiepkg)
 
 ---
 
