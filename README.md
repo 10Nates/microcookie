@@ -92,7 +92,7 @@ Using HTML
 <script src="path/to/src/microcookie-min.js"></script>
 
 <!-- Stored locally using npm -->
-<script src="node_modules/microcookie/export/microcookie-min.js"></script>
+<script src="node_modules/microcookiepkg/export/microcookie-min.js"></script>
 
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
