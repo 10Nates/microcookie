@@ -1,18 +1,19 @@
-/** @preserve https://github.com/10Nates/microcookie */
+/**@preserve https://github.com/10Nates/microcookie */
 
-const MicroCookie = {
+//Against my better judgement to use const or let, It doesn't recieve 100% compatibility on https://seedmanc.github.io/jscc/
+var MicroCookie = {
 
     /**
      * @description Get a cookie
-     * @param {string} key 
+     * @param {string} k key
      * @returns {string|undefined} value of key
      */
-    get: function (key) {
+    get: function (k) {
         //split cookie string into separate cookies
-        let cparse = document.cookie ? document.cookie.split(/; ?/g) : []
+        var cparse = document.cookie ? document.cookie.split(/; ?/g) : []
         for (i=0; i<cparse.length; i++) {
             //detect desired cookie
-            if (cparse[i].startsWith(key + '=')) {
+            if (cparse[i].startsWith(k + '=')) {
                 return decodeURIComponent(cparse[i].split('=')[1])
             }
         }
@@ -21,31 +22,31 @@ const MicroCookie = {
 
     /**
      * @description Set a cookie
-     * @param {string} key to prevent issues, only use alphanumeric characters
-     * @param {string} val the value the key will be set to
-     * @param {number} exp Unix timestamp (seconds)
+     * @param {string} k key - to prevent issues, only use alphanumeric characters
+     * @param {string} v value - what the key will be set to
+     * @param {number} e expiration - Unix timestamp (seconds)
      * @returns {string} the encoded cookie string (does not need to be used)
      */
-    set: function (key, val, exp) {
+    set: function (k, v, e) {
         //convert timestamp to RSC spec
-        let d = new Date()
-        d.setTime(exp * 1000)
-        let expString = d.toUTCString()
+        var d = new Date()
+        d.setTime(e * 1000)
+        var expString = d.toUTCString()
         //encode value of key to prevent issues
-        let setval = encodeURIComponent(val)
+        var setval = encodeURIComponent(v)
         //put it together
-        let cookiestring = key + "=" + setval + "; expires=" + expString
+        var cookiestring = k + "=" + setval + "; expires=" + expString
         document.cookie = cookiestring
         return cookiestring
     },
 
     /**
      * @description Remove a cookie
-     * @param {string} key key to be removed
+     * @param {string} k key to be removed
      */
-    remove: function (key) {
+    remove: function (k) {
         //set cookie to expired date
-        document.cookie = key + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie = k + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     },
 
     /**
@@ -57,10 +58,10 @@ const MicroCookie = {
      * @returns {number} The calculated unix timestamp
      */
     makeExpiration: function (d, w, m, y) {
-        //milliseconds -> seconds
-        let nowsecs = Math.floor(Date.now() / 1000)
+        //milliseconds -> seconds, not using Date.now() for compatibility
+        var nowsecs = Math.floor(new Date().getTime() / 1000)
         //                         secs in a day            secs in a week     secs in 30.4375 days      secs in 365.25 days
-        let newtime = nowsecs + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
+        var newtime = nowsecs + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
         return Math.floor(newtime)
     }
     

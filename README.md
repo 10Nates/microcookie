@@ -2,7 +2,7 @@
 
 [About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie)
 
------
+---
 
 <br>
 
@@ -12,7 +12,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management library designed to be so small you don't even notice it's there.
+MicroCookie is a desert-bone-dry cookie management library designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
@@ -28,9 +28,11 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 <br>
 
-### NOTICE
+### <span style="color:red">NOTICE</span>
 
-MicroCookie does not currently support paths. It may or may not support paths in the future.
+- MicroCookie does not currently support paths. It may or may not support paths in the future.
+- npm is probably the least convenient way to use this library.
+- All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
 
 <br>
 
@@ -38,13 +40,59 @@ MicroCookie does not currently support paths. It may or may not support paths in
 
 <br>
 
-### Adding to your project
+### Note for npm users
 
-MicroCookie is not currently designed for npm (even though I have the package.json) so the only way to import it normally.
+MicroCookie is not currently designed for browserify, webpack, or similar programs because it is already designed for the web. As such, you cannot import MicroCookie as a module.
+
+<br>
+
+### Standard
+
+Either download microcookie-min.js in the [releases tab](https://github.com/10Nates/microcookie/releases), or use one of the external sources already provided.
+
+[Including MicroCookie in your project](#including-microcookie-in-your-project)
+
+<br>
+
+### Using npm
+
+```shell
+npm install uglify-js -g
+npm install microcookie
+```
+
+npm will automatically run the minimizing script, but if it doesn't, refer to [Minimizing MicroCookie](#minimizing-microcookie)
+
+[Including MicroCookie in your project](#including-microcookie-in-your-project)
+
+<br>
+
+### Minimizing MicroCookie
+
+The arguments used in `npm run-script ugly` are
+
+> ```shell
+> npm install uglify-js -g
+> if [ ! -d  export ]; then mkdir export
+> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\[k,v,p,e,d,w,m,y\] --comments -c passes=3
+> ```
+
+If you are using npm, it is recommended you simply run the script if it hasn't already.
+
+[Conditional directory from pcambra](https://stackoverflow.com/questions/4906579/how-to-use-bash-to-create-a-folder-if-it-doesnt-already-exist)
+
+<br>
+
+### Including MicroCookie in your project
+
+Using HTML
 
 ```html
 <!-- Stored locally -->
-<script src="microcookie-min.js"></script>
+<script src="path/to/src/microcookie-min.js"></script>
+
+<!-- Stored locally using npm -->
+<script src="node_modules/microcookie/export/microcookie-min.js"></script>
 
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
@@ -53,13 +101,15 @@ MicroCookie is not currently designed for npm (even though I have the package.js
 <script src="https://cdn.jsdelivr.net/gh/10Nates/microcookie@main/export/microcookie-min.js"></script>
 ```
 
-<br>
+Using JavaScript
 
-### Minimize MicroCookie yourself
-
-The arguments I used for uglifyjs were
-
-> `uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\[key,value,path,exp,d,w,m,y\] --comments -c passes=3`
+```js
+//https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+//I am not using the ES6 module/CommonJS system because I intend for this package to be as compatible as possible.
+var script = document.createElement("script"); // create a script DOM node
+script.src = "whatever you picked for HTML but here in javascript because javascript is the future";
+document.head.appendChild(script);
+```
 
 <br>
 
@@ -128,12 +178,14 @@ MicroCookie.set("test", "This is a test!", expiration);
  * @description Remove a cookie
  * @param {string} key key to be removed
  */
-MicroCookie.remove(key)
+MicroCookie.remove(key);
 
 //example - remove cookie "test"
-MicroCookie.remove("test")
+MicroCookie.remove("test");
 ```
+
+<br>
 
 ### Full examples
 
-A the time of writing, there is one full example, which is available in the [`test/`](./test/) folder as [`test/testpage.html`](./test/testpage.html)
+At the time of writing, there is one full example, which is available in the [`test/`](./test/) folder as [`test/testpage.html`](./test/testpage.html)
