@@ -1,7 +1,7 @@
 {
-  "name": "microcookie",
+  "name": "microcookiepkg",
   "version": "1.0.2",
-  "description": "A minuscule cookie library. Nothing but bones. Does not currently support paths.",
+  "description": "MicroCookie - A minuscule cookie library. Nothing but bones. Compatible with every single browser.",
   "main": "microcookie.js",
   "repository": {
     "type": "git",

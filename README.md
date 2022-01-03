@@ -12,7 +12,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management library designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 622 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
@@ -58,7 +58,7 @@ Either download microcookie-min.js in the [releases tab](https://github.com/10Na
 
 ```shell
 npm install uglify-js -g
-npm install microcookie
+npm install microcookiepkg
 ```
 
 npm will automatically run the minimizing script, but if it doesn't, refer to [Minimizing MicroCookie](#minimizing-microcookie)
