@@ -1,4 +1,4 @@
-/**@preserve https://github.com/10Nates/microcookie */
+/**@preserve https://github.com/10Nates/microcookie MIT */
 
 //Against my better judgement to use const or let, It doesn't recieve 100% compatibility on https://seedmanc.github.io/jscc/
 var MicroCookie = {
@@ -11,7 +11,7 @@ var MicroCookie = {
     get: function (k) {
         //split cookie string into separate cookies
         var cparse = document.cookie ? document.cookie.split(/; ?/g) : []
-        for (i=0; i<cparse.length; i++) {
+        for (i = 0; i < cparse.length; i++) {
             //detect desired cookie
             if (cparse[i].startsWith(k + '=')) {
                 return decodeURIComponent(cparse[i].split('=')[1])
@@ -25,28 +25,33 @@ var MicroCookie = {
      * @param {string} k key - to prevent issues, only use alphanumeric characters
      * @param {string} v value - what the key will be set to
      * @param {number} e expiration - Unix timestamp (seconds)
+     * @param {string} p path (optional) - restricts cookie to path
+     * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
+     * @param {true} s secure (optional) - only allow cookie on HTTPS connection
      * @returns {string} the encoded cookie string (does not need to be used)
      */
-    set: function (k, v, e) {
+    set: function (k, v, e, p, d, s) {
         //convert timestamp to RSC spec
-        var d = new Date()
-        d.setTime(e * 1000)
-        var expString = d.toUTCString()
+        var dt = new Date()
+        dt.setTime(e * 1000)
+        var expString = dt.toUTCString()
         //encode value of key to prevent issues
         var setval = encodeURIComponent(v)
         //put it together
-        var cookiestring = k + "=" + setval + "; expires=" + expString
+        var cookiestring = k + "=" + setval + "; expires=" + expString + (p ? "; path=" + p : "") + (d ? "; domain=" + d : "") + (s ? "; secure" : "")
         document.cookie = cookiestring
         return cookiestring
     },
 
     /**
      * @description Remove a cookie
-     * @param {string} k key to be removed
+     * @param {string} k key of cookie to be removed
+     * @param {string} p path (optional) - path cookie is stored to
+     * @param {string} d domain (optional) - domain cookie is stored to
      */
-    remove: function (k) {
+    remove: function (k, p, d) {
         //set cookie to expired date
-        document.cookie = k + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        this.set(k, "", 0, p, d)
     },
 
     /**
@@ -64,5 +69,5 @@ var MicroCookie = {
         var newtime = nowsecs + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
         return Math.floor(newtime)
     }
-    
+
 }

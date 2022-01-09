@@ -12,13 +12,13 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 622 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 654 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
 ### Why another cookie manager?
 
-Every "simple" cookie manager I could find was kilobytes in size with a bunch of quality of life features that seem to miss the mark. The hardest part about managing cookies is the jump from string to storage. If that's taken care of, everything else is a breeze.
+Every "simple" cookie manager I could find was much bigger than it needed to be. Additionally, the compatibility metric of all of them was ridiculously bad. 
 
 <br>
 
@@ -30,7 +30,7 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### <span style="color:red">NOTICE</span>
 
-- MicroCookie does not currently support paths. It may or may not support paths in the future.
+- UglifyJS compresses `set` in a way that the `s` argument becomes a different character. It still works.
 - npm is probably the least convenient way to use this library.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
 
@@ -72,9 +72,9 @@ npm will automatically run the minimizing script, but if it doesn't, refer to [M
 The arguments used in `npm run-script ugly` are
 
 > ```shell
-> npm install uglify-js -g
-> if [ ! -d  export ]; then mkdir export
-> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\[k,v,p,e,d,w,m,y\] --comments -c passes=3
+> echo needed -> npm install uglify-js -g
+> if [ ! -d  export ]; then mkdir export; fi
+> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=3
 > ```
 
 If you are using npm, it is recommended you simply run the script if it hasn't already.
@@ -122,10 +122,10 @@ document.head.appendChild(script);
 ```js
 /**
  * @description Get a cookie
- * @param {string} key the cookie's identifier
+ * @param {string} k key
  * @returns {string|undefined} value of key
  */
-MicroCookie.get(key);
+MicroCookie.get(k);
 
 //example - get cookie "test"
 MicroCookie.get("test");
@@ -138,13 +138,13 @@ MicroCookie.get("test");
 ```js
 /**
  * @description craft a unix timestamp usable with the add function
- * @param {number} days from current date
- * @param {number} weeks from current date (7 days)
- * @param {number} months from current date (30.4375 days)
- * @param {number} years from current date (365.25 days) (going beyond 2038 is incompatible with 32 bit devices)
+ * @param {number} d days from current date
+ * @param {number} w weeks from current date (7 days)
+ * @param {number} m months from current date (30.4375 days)
+ * @param {number} y years from current date (365.25 days) (going beyond 2038 is incompatible with 32 bit devices)
  * @returns {number} The calculated unix timestamp
  */
-MicroCookie.makeExpiration(days, weeks, months, years);
+MicroCookie.makeExpiration(d, w, m, y);
 
 //example - expiration date for 1 month and 2 weeks
 MicroCookie.makeExpiration(undefined, 2, 1);
@@ -157,16 +157,22 @@ MicroCookie.makeExpiration(undefined, 2, 1);
 ```js
 /**
  * @description Set a cookie
- * @param {string} key to prevent issues, only use alphanumeric characters
- * @param {string} value the value the key will be set to
- * @param {number} expiration Unix timestamp (seconds)
+ * @param {string} k key - to prevent issues, only use alphanumeric characters
+ * @param {string} v value - what the key will be set to
+ * @param {number} e expiration - Unix timestamp (seconds)
+ * @param {string} p path (optional) - restricts cookie to path
+ * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
+ * @param {true} s secure (optional) - only allow cookie on HTTPS connection
  * @returns {string} the encoded cookie string (does not need to be used)
  */
-MicroCookie.set(key, value, expiration);
+MicroCookie.set(k, v, e, p, d, s);
 
 //example - set cookie "test" with value "This is a test!" expiring in 1 day
 let expiration = MicroCookie.makeExpiration(1);
 MicroCookie.set("test", "This is a test!", expiration);
+
+//example - set cookie "test" with value "This is a test!" expiring in 1 day for all subdomains on example.com over HTTPS
+MicroCookie.set("test", "This is a test!", expiration, "/", "example.com", true);
 ```
 
 <br>
@@ -176,9 +182,11 @@ MicroCookie.set("test", "This is a test!", expiration);
 ```js
 /**
  * @description Remove a cookie
- * @param {string} key key to be removed
+ * @param {string} k key of cookie to be removed
+ * @param {string} p path (optional) - path cookie is stored to
+ * @param {string} d domain (optional) - domain cookie is stored to
  */
-MicroCookie.remove(key);
+MicroCookie.remove(k, p, d);
 
 //example - remove cookie "test"
 MicroCookie.remove("test");

@@ -1,6 +1,6 @@
 {
   "name": "microcookiepkg",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MicroCookie - A minuscule cookie library. Nothing but bones. Compatible with every single browser.",
   "main": "microcookie.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+https://github.com/10Nates/microcookie.git"
   },
   "scripts": {
-    "ugly": "if [ ! -d  export ]; then mkdir export; fi && uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,d,w,m,y\\] --comments -c passes=3",
+    "ugly": "if [ ! -d  export ]; then mkdir export; fi && uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=3",
     "postinstall": "npm run-script ugly"
   },
   "files": ["LICENSE", "microcookie.js", "package.json", "README.md"],
