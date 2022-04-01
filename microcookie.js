@@ -1,4 +1,4 @@
-/**@preserve https://github.com/10Nates/microcookie MIT */
+/**@preserve https://github.com/10Nates/microcookie MIT*/
 
 //Against my better judgement to use const or let, It doesn't recieve 100% compatibility on https://seedmanc.github.io/jscc/
 var MicroCookie = {
