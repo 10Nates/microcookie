@@ -12,7 +12,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 654 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 649 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 

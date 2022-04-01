@@ -64,9 +64,8 @@ var MicroCookie = {
      */
     makeExpiration: function (d, w, m, y) {
         //milliseconds -> seconds, not using Date.now() for compatibility
-        var nowsecs = Math.floor(new Date().getTime() / 1000)
-        //                         secs in a day            secs in a week     secs in 30.4375 days      secs in 365.25 days
-        var newtime = nowsecs + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
+        //                  current seconds                      secs in a day            secs in a week     secs in 30.4375 days      secs in 365.25 days
+        var newtime = Math.floor(new Date().getTime() / 1000) + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
         return Math.floor(newtime)
     }
 
