@@ -1,3 +1,8 @@
+![](https://img.shields.io/github/size/10nates/microcookie/export/microcookie-min.js)
+![](https://img.shields.io/bundlephobia/minzip/microcookiepkg/latest)
+![](https://img.shields.io/jsdelivr/gh/hy/10nates/microcookie)
+
+
 # MicroCookie
 
 [About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie) | [Npm Pmn Mnp](https://www.npmjs.com/package/microcookiepkg)
@@ -12,7 +17,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 591 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 591 bytes minimized, 129 bytes bundled & minzipped!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
@@ -30,7 +35,8 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### <span style="color:red">NOTICE</span>
 
-- It does not currently support paths.
+- Does **not** currently support **sameSite** or **httpOnly** configuration
+- There is no internal namespace conflict management
 - npm is probably the least convenient way to use this library.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
 - UglifyJS used to change reserved variable names if they were optimized out. It may reappear in the future, but it does not affect usage.
