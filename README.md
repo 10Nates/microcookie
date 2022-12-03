@@ -1,3 +1,4 @@
+![](https://img.shields.io/npm/v/microcookiepkg)
 ![](https://img.shields.io/github/size/10nates/microcookie/export/microcookie-min.js)
 ![](https://img.shields.io/bundlephobia/minzip/microcookiepkg/latest)
 ![](https://img.shields.io/jsdelivr/gh/hy/10nates/microcookie)
@@ -5,7 +6,7 @@
 
 # MicroCookie
 
-[About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie) | [Npm Pmn Mnp](https://www.npmjs.com/package/microcookiepkg)
+[About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie) | [NPM Package](https://www.npmjs.com/package/microcookiepkg)
 
 ---
 
