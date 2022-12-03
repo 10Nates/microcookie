@@ -12,7 +12,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 649 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 591 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
@@ -30,9 +30,10 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### <span style="color:red">NOTICE</span>
 
-- UglifyJS compresses `set` in a way that the `s` argument becomes a different character. It still works.
+- It does not currently support paths.
 - npm is probably the least convenient way to use this library.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
+- UglifyJS used to change reserved variable names if they were optimized out. It may reappear in the future, but it does not affect usage.
 
 <br>
 
@@ -142,7 +143,7 @@ MicroCookie.get("test");
  * @param {number} w weeks from current date (7 days)
  * @param {number} m months from current date (30.4375 days)
  * @param {number} y years from current date (365.25 days) (going beyond 2038 is incompatible with 32 bit devices)
- * @returns {number} The calculated unix timestamp
+ * @returns {number} The calculated unix timestamp (ms)
  */
 MicroCookie.makeExpiration(d, w, m, y);
 
@@ -159,7 +160,7 @@ MicroCookie.makeExpiration(undefined, 2, 1);
  * @description Set a cookie
  * @param {string} k key - to prevent issues, only use alphanumeric characters
  * @param {string} v value - what the key will be set to
- * @param {number} e expiration - Unix timestamp (seconds)
+ * @param {number} e expiration - Unix timestamp (ms)
  * @param {string} p path (optional) - restricts cookie to path
  * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
  * @param {true} s secure (optional) - only allow cookie on HTTPS connection

@@ -10,21 +10,17 @@ var MicroCookie = {
      */
     get: function (k) {
         //split cookie string into separate cookies
-        var cparse = document.cookie ? document.cookie.split(/; ?/g) : []
-        for (i = 0; i < cparse.length; i++) {
-            //detect desired cookie
-            if (cparse[i].startsWith(k + '=')) {
-                return decodeURIComponent(cparse[i].split('=')[1])
-            }
-        }
-        return undefined
+        var cookieRegExp = new RegExp(k + '=(.+?)(;|$)') // example=something%20something; OR example=something%20something EOS
+
+        var find = document.cookie.match(cookieRegExp)
+        return find ? decodeURIComponent(find[1]) : undefined
     },
 
     /**
      * @description Set a cookie
      * @param {string} k key - to prevent issues, only use alphanumeric characters
      * @param {string} v value - what the key will be set to
-     * @param {number} e expiration - Unix timestamp (seconds)
+     * @param {number} e expiration - Unix timestamp (ms)
      * @param {string} p path (optional) - restricts cookie to path
      * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
      * @param {true} s secure (optional) - only allow cookie on HTTPS connection
@@ -33,7 +29,7 @@ var MicroCookie = {
     set: function (k, v, e, p, d, s) {
         //convert timestamp to RSC spec
         var dt = new Date()
-        dt.setTime(e * 1000)
+        dt.setTime(e)
         var expString = dt.toUTCString()
         //encode value of key to prevent issues
         var setval = encodeURIComponent(v)
@@ -60,12 +56,12 @@ var MicroCookie = {
      * @param {number} w weeks from current date (7 days)
      * @param {number} m months from current date (30.4375 days)
      * @param {number} y years from current date (365.25 days) (going beyond 2038 is incompatible with 32 bit devices)
-     * @returns {number} The calculated unix timestamp
+     * @returns {number} The calculated unix timestamp (ms)
      */
     makeExpiration: function (d, w, m, y) {
         //milliseconds -> seconds, not using Date.now() for compatibility
-        //                  current seconds                      secs in a day            secs in a week     secs in 30.4375 days      secs in 365.25 days
-        var newtime = Math.floor(new Date().getTime() / 1000) + (d ? d * 86400 : 0) + (w ? w * 604800 : 0) + (m ? m * 2629800 : 0) + (y ? y * 31557600 : 0)
+        //                  current seconds                   ms in a day              ms in a week            ms in 30.4375 days          ms in 365.25 days
+        var newtime = Math.floor(new Date().getTime()) + (d ? d * 86400000 : 0) + (w ? w * 604800000 : 0) + (m ? m * 2629800000 : 0) + (y ? y * 31557600000 : 0)
         return Math.floor(newtime)
     }
 
