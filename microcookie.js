@@ -9,11 +9,11 @@ var MicroCookie = {
      * @returns {string|undefined} value of key
      */
     get: function (k) {
-        //split cookie string into separate cookies
+        //Simultaneously search cookies and extract value using RegEx
         var cookieRegExp = new RegExp(k + '=(.+?)(;|$)') // example=something%20something; OR example=something%20something EOS
 
         var find = document.cookie.match(cookieRegExp)
-        return find ? decodeURIComponent(find[1]) : undefined
+        return find ? decodeURIComponent(find[1]) : undefined // capture group 1
     },
 
     /**
