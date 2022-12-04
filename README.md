@@ -18,7 +18,7 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 591 bytes minimized, 129 bytes bundled & minzipped!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 594 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
@@ -38,7 +38,7 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 - Does **not** currently support **sameSite** or **httpOnly** configuration
 - There is no internal namespace conflict management
-- npm is probably the least convenient way to use this library.
+- npm is probably the least convenient way to use this library. It still works, though.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
 - UglifyJS used to change reserved variable names if they were optimized out. It may reappear in the future, but it does not affect usage.
 
@@ -50,7 +50,8 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### Note for npm users
 
-MicroCookie is not currently designed for browserify, webpack, or similar programs because it is already designed for the web. As such, you cannot import MicroCookie as a module.
+MicroCookie is not intentionally deigned for npm as it is already designed for the web. 
+However, it is exported CJS-style pre-minification and should work as long as `document.cookie` is valid.
 
 <br>
 
@@ -65,6 +66,10 @@ Either download microcookie-min.js in the [releases tab](https://github.com/10Na
 ### Using npm
 
 ```shell
+echo "You need to install Stream EDitor using whatever package manager is on your os if it isn't already installed, ex."
+sudo apt-get install sed
+echo "Uglify is necessary to minimize the package for direct reference in HTML. 
+If you don't need that, you can just let npm fail the postinstall and it will be fine."
 npm install uglify-js -g
 npm install microcookiepkg
 ```
@@ -80,12 +85,13 @@ npm will automatically run the minimizing script, but if it doesn't, refer to [M
 The arguments used in `npm run-script ugly` are
 
 > ```shell
-> echo needed -> npm install uglify-js -g
+> echo needed -> which sed && which uglifyjs
 > if [ ! -d  export ]; then mkdir export; fi
-> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=3
+> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=5 --ie --v8
+> sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' export/microcookie-min.js
 > ```
 
-If you are using npm, it is recommended you simply run the script if it hasn't already.
+If you are using npm, it is recommended you simply run the script if it hasn't done so automatically during install.
 
 [Conditional directory from pcambra](https://stackoverflow.com/questions/4906579/how-to-use-bash-to-create-a-folder-if-it-doesnt-already-exist)
 
@@ -109,14 +115,19 @@ Using HTML
 <script src="https://cdn.jsdelivr.net/gh/10Nates/microcookie@main/export/microcookie-min.js"></script>
 ```
 
-Using JavaScript
+Using JavaScript directly in browser
 
 ```js
 //https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
-//I am not using the ES6 module/CommonJS system because I intend for this package to be as compatible as possible.
 var script = document.createElement("script"); // create a script DOM node
-script.src = "whatever you picked for HTML but here in javascript because javascript is the future";
+script.src = "path/to/microcookie-min.js";
 document.head.appendChild(script);
+```
+
+Using NPM / Webpack / Browserify
+```js
+// This is not automatically minified and as such will be larger pre-packing (but also far more commented)
+const MicroCookie = require('microcookiepkg')
 ```
 
 <br>

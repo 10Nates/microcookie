@@ -66,3 +66,10 @@ var MicroCookie = {
     }
 
 }
+
+/*
+This is only necessary when using this as a module. 
+When imported in HTML, this is not necessary and could cause compatibility issues with very old browsers.
+As such, this is removed in the minified export version.
+*/
+module.exports = MicroCookie

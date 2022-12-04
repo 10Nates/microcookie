@@ -1,6 +1,6 @@
 {
   "name": "microcookiepkg",
-  "version": "1.0.5-b",
+  "version": "1.0.6",
   "description": "MicroCookie - A minuscule cookie library. Nothing but bones. Compatible with every single browser.",
   "main": "microcookie.js",
   "repository": {
@@ -8,8 +8,9 @@
     "url": "git+https://github.com/10Nates/microcookie.git"
   },
   "scripts": {
-    "ugly": "if [ ! -d  export ]; then mkdir export; fi && uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=3",
-    "postinstall": "npm run-script ugly"
+    "htmlprep": "sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' export/microcookie-min.js",
+    "ugly": "if [ ! -d  export ]; then mkdir export; fi && uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=5 --ie --v8 && npm run-script htmlprep",
+    "postinstall": "echo 'If uglify-js is not installed globally OR sed is not installed, this script will fail!' && npm run-script ugly"
   },
   "files": [
     "LICENSE",
