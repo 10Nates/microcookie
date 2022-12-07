@@ -24,17 +24,19 @@ var MicroCookie = {
      * @param {string} p path (optional) - restricts cookie to path
      * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
      * @param {true} s secure (optional) - only allow cookie on HTTPS connection
+     * @param {true} h httpOnly (optional) - do not allow cookie to be read & written to using JS after invocation
+     * @param {"None"|"Lax"|"Strict"} x sameSite (optional) - cookie cross-site options, "None" typically requires "secure"
      * @returns {string} the encoded cookie string (does not need to be used)
      */
-    set: function (k, v, e, p, d, s) {
+    set: function (k, v, e, p, d, s, h, x) {
         //convert timestamp to RSC spec
-        var dt = new Date()
-        dt.setTime(e)
+        var dt = new Date(e)
         var expString = dt.toUTCString()
         //encode value of key to prevent issues
         var setval = encodeURIComponent(v)
         //put it together
-        var cookiestring = k + "=" + setval + "; expires=" + expString + (p ? "; path=" + p : "") + (d ? "; domain=" + d : "") + (s ? "; secure" : "")
+        var cookiestring = k + "=" + setval + "; expires=" + expString + (p ? "; path=" + p : "") + (d ? "; domain=" + d : "") + 
+                                                    (s ? "; secure" : "") + (h ? "; httpOnly" : "") + (x ? "; sameSite=" + x : "")
         document.cookie = cookiestring
         return cookiestring
     },
