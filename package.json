@@ -2,21 +2,21 @@
   "name": "microcookiepkg",
   "version": "1.1.0",
   "description": "MicroCookie - A minuscule cookie library. Nothing but bones. Compatible with every single browser.",
-  "main": "export/microcookie-npm.js",
+  "main": "dist/microcookie-npm.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/10Nates/microcookie.git"
   },
   "scripts": {
-    "htmlprep": "sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' export/microcookie-min.js",
-    "distprep": "if [ ! -d  export ]; then mkdir export; fi",
-    "uglyhtm": "uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments -c passes=5 --ie --v8 && npm run-script htmlprep",
-    "uglynpm": "uglifyjs microcookie.js -o export/microcookie-npm.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments /@/ -c passes=5 --ie --v8 ",
+    "htmlprep": "sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' dist/microcookie-min.js",
+    "distprep": "if [ ! -d  dist ]; then mkdir dist; fi",
+    "uglyhtm": "uglifyjs microcookie.js -o dist/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments -c passes=5 --ie --v8 && npm run-script htmlprep",
+    "uglynpm": "uglifyjs microcookie.js -o dist/microcookie-npm.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments /@/ -c passes=5 --ie --v8 ",
     "prepublishOnly": "npm run-script distprep && npm run-script uglyhtm && npm run-script uglynpm"
   },
   "files": [
     "LICENSE",
-    "export/microcookie-npm.js",
+    "dist/microcookie-npm.js",
     "package.json",
     "package-lock.json",
     "README.md"

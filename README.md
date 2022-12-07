@@ -1,5 +1,5 @@
 ![](https://img.shields.io/npm/v/microcookiepkg)
-![](https://img.shields.io/github/size/10nates/microcookie/export/microcookie-min.js)
+![](https://img.shields.io/github/size/10nates/microcookie/dist/microcookie-min.js)
 ![](https://img.shields.io/bundlephobia/minzip/microcookiepkg/latest)
 ![](https://img.shields.io/jsdelivr/gh/hy/10nates/microcookie)
 
@@ -68,7 +68,7 @@ Either download microcookie-min.js in the [releases tab](https://github.com/10Na
 npm install microcookiepkg
 ```
 
-This will install the pre-exported package ready for use. If you would like to make changes or contribute, view [Minimizing MicroCookie.](#minimizing-microcookie)
+This will install the pre-processed package ready for use. If you would like to make changes or contribute, view [Minimizing MicroCookie.](#minimizing-microcookie)
 
 Otherwise, you can proceed to [Including MicroCookie in your project.](#including-microcookie-in-your-project)
 
@@ -91,7 +91,7 @@ Once this is installed, the following script can be run:
 > npm run-script prepublishOnly
 > ```
 
-This will run a chain of commands that create the export folder, minimize with separate settings for HTML and NPM,
+This will run a chain of commands that create the dist folder, minimize with separate settings for HTML and NPM,
 and modify the HTML result to remove NPM-specific code. If you would like to view this in detail, it is in the [package.json](./package.json).
 
 [Conditional directory from pcambra](https://stackoverflow.com/questions/4906579/how-to-use-bash-to-create-a-folder-if-it-doesnt-already-exist)
@@ -107,13 +107,13 @@ Using HTML
 <script src="path/to/src/microcookie-min.js"></script>
 
 <!-- Stored locally using npm -->
-<script src="node_modules/microcookiepkg/export/microcookie-min.js"></script>
+<script src="node_modules/microcookiepkg/dist/microcookie-min.js"></script>
 
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
 
 <!-- Stored on jsDelivr -->
-<script src="https://cdn.jsdelivr.net/gh/10Nates/microcookie@main/export/microcookie-min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/10Nates/microcookie@main/dist/microcookie-min.js"></script>
 ```
 
 Using JavaScript directly in browser
