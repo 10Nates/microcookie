@@ -58,11 +58,11 @@ var MicroCookie = {
      * @param {number} y years from current date (365.25 days) (going beyond 2038 is incompatible with 32 bit devices)
      * @returns {number} The calculated unix timestamp (ms)
      */
-    makeExpiration: function (d, w, m, y) {
+    makeExpiration: function (d=0, w=0, m=0, y=0) { // by default 0s on everything
         //milliseconds -> seconds, not using Date.now() for compatibility
-        //                  current seconds                   ms in a day              ms in a week            ms in 30.4375 days          ms in 365.25 days
-        var newtime = Math.floor(new Date().getTime()) + (d ? d * 86400000 : 0) + (w ? w * 604800000 : 0) + (m ? m * 2629800000 : 0) + (y ? y * 31557600000 : 0)
-        return Math.floor(newtime)
+        //                current seconds                ms in a day      ms in a week    ms in 30.4375 days   ms in 365.25 days
+        var newtime = Math.floor(new Date().getTime() + (d * 86400000) + (w * 604800000) + (m * 2629800000) + (y * 31557600000))
+        return newtime
     }
 
 }
