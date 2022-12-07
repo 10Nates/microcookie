@@ -3,7 +3,6 @@
 ![](https://img.shields.io/bundlephobia/minzip/microcookiepkg/latest)
 ![](https://img.shields.io/jsdelivr/gh/hy/10nates/microcookie)
 
-
 # MicroCookie
 
 [About MicroCookie](#about-microcookie) | [Installing MicroCookie](#installing-microcookie) | [Using MicroCookie](#using-microcookie) | [NPM Package](https://www.npmjs.com/package/microcookiepkg)
@@ -18,13 +17,13 @@
 
 ### What is MicroCookie?
 
-MicroCookie is a desert-bone-dry cookie management package (just 594 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
+MicroCookie is a desert-bone-dry cookie management package (just 568 bytes minimized!) designed to be so small you don't even notice it's there. It's also [100% compatible.](https://seedmanc.github.io/jscc/)
 
 <br>
 
 ### Why another cookie manager?
 
-Every "simple" cookie manager I could find was much bigger than it needed to be. Additionally, the compatibility metric of all of them was ridiculously bad. 
+Every "simple" cookie manager I could find was much bigger than it needed to be. Additionally, the compatibility metric of all of them was ridiculously bad.
 
 <br>
 
@@ -36,9 +35,9 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### <span style="color:red">NOTICE</span>
 
-- Does **not** currently support **sameSite** or **httpOnly** configuration
 - There is no internal namespace conflict management
-- npm is probably the least convenient way to use this library. It still works, though.
+- This is not guaranteed to be RFC 6265 compliant. However, if you find an incompliant section, it is considered a bug.
+- npm is probably the clunkiest way of using this library. It does work, though.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
 - UglifyJS used to change reserved variable names if they were optimized out. It may reappear in the future, but it does not affect usage.
 
@@ -50,8 +49,8 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 ### Note for npm users
 
-MicroCookie is not intentionally deigned for npm as it is already designed for the web. 
-However, it is exported CJS-style pre-minification and should work as long as `document.cookie` is valid.
+MicroCookie is not intentionally deigned for npm as it is already designed for the web.
+However, it is exported CJS-style with JSDocs excluded from minimization and should work as long as `document.cookie` is valid.
 
 <br>
 
@@ -66,32 +65,34 @@ Either download microcookie-min.js in the [releases tab](https://github.com/10Na
 ### Using npm
 
 ```shell
-echo "You need to install Stream EDitor using whatever package manager is on your os if it isn't already installed, ex."
-sudo apt-get install sed
-echo "Uglify is necessary to minimize the package for direct reference in HTML. 
-If you don't need that, you can just let npm fail the postinstall and it will be fine."
-npm install uglify-js -g
 npm install microcookiepkg
 ```
 
-npm will automatically run the minimizing script, but if it doesn't, refer to [Minimizing MicroCookie](#minimizing-microcookie)
+This will install the pre-exported package ready for use. If you would like to make changes or contribute, view [Minimizing MicroCookie.](#minimizing-microcookie)
 
-[Including MicroCookie in your project](#including-microcookie-in-your-project)
+Otherwise, you can proceed to [Including MicroCookie in your project.](#including-microcookie-in-your-project)
 
 <br>
 
 ### Minimizing MicroCookie
 
-The arguments used in `npm run-script ugly` are
+A number of npm scripts are set up in order to automate minimization and modification. The following precursors will be necessary:
+
+```
+echo "You need to install Stream EDitor using the package manager on your os if it isn't already installed, ie."
+sudo apt-get install sed
+echo "Uglify is necessary to minimize the package"
+npm install uglify-js -g
+```
+
+Once this is installed, the following script can be run:
 
 > ```shell
-> echo needed -> which sed && which uglifyjs
-> if [ ! -d  export ]; then mkdir export; fi
-> uglifyjs microcookie.js -o export/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,w,m,y\\] --comments -c passes=5 --ie --v8
-> sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' export/microcookie-min.js
+> npm run-script prepublishOnly
 > ```
 
-If you are using npm, it is recommended you simply run the script if it hasn't done so automatically during install.
+This will run a chain of commands that create the export folder, minimize with separate settings for HTML and NPM,
+and modify the HTML result to remove NPM-specific code. If you would like to view this in detail, it is in the [package.json](./package.json).
 
 [Conditional directory from pcambra](https://stackoverflow.com/questions/4906579/how-to-use-bash-to-create-a-folder-if-it-doesnt-already-exist)
 
@@ -125,9 +126,10 @@ document.head.appendChild(script);
 ```
 
 Using NPM / Webpack / Browserify
+
 ```js
-// This is not automatically minified and as such will be larger pre-packing (but also far more commented)
-const MicroCookie = require('microcookiepkg')
+// This is not fully minified and as such will be larger pre-packing (but also far more commented)
+const MicroCookie = require("microcookiepkg");
 ```
 
 <br>
@@ -179,19 +181,26 @@ MicroCookie.makeExpiration(undefined, 2, 1);
  * @param {string} k key - to prevent issues, only use alphanumeric characters
  * @param {string} v value - what the key will be set to
  * @param {number} e expiration - Unix timestamp (ms)
- * @param {string} p path (optional) - restricts cookie to path
- * @param {string} d domain (optional) - restricts (or loosens) cookie to subdomain
- * @param {true} s secure (optional) - only allow cookie on HTTPS connection
- * @returns {string} the encoded cookie string (does not need to be used)
+ * @param {object} o optional configuration for path, domain, secure, httpOnly, & sameSite
+ * @param {string} o.path - restricts cookie to path
+ * @param {string} o.domain - restricts (or loosens) cookie to subdomain
+ * @param {true} o.secure - only allow cookie on HTTPS connection
+ * @param {true} o.httpOnly - do not allow cookie to be read & written to using JS after invocation
+ * @param {"None"|"Lax"|"Strict"} o.sameSite - cookie cross-site options, "None" typically requires "secure"
+ * @returns {string} the encoded cookie string as a receipt
  */
-MicroCookie.set(k, v, e, p, d, s);
+MicroCookie.set(k, v, e, {o.path, o.domain, o.secure, o.httpOnly, o.sameSite});
 
 //example - set cookie "test" with value "This is a test!" expiring in 1 day
 let expiration = MicroCookie.makeExpiration(1);
 MicroCookie.set("test", "This is a test!", expiration);
 
-//example - set cookie "test" with value "This is a test!" expiring in 1 day for all subdomains on example.com over HTTPS
-MicroCookie.set("test", "This is a test!", expiration, "/", "example.com", true);
+//example - set cookie "test" with value "This is a test!" expiring in 1 day for all subdomains on example.com over HTTPS only
+MicroCookie.set("test", "This is a test!", expiration, {
+    path: "/",
+    domain: "example.com",
+    secure: true
+});
 ```
 
 <br>
