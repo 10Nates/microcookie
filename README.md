@@ -1,6 +1,6 @@
 ![](https://img.shields.io/npm/v/microcookiepkg)
 ![](https://img.shields.io/github/size/10nates/microcookie/dist/microcookie-min.js)
-![](https://img.shields.io/bundlephobia/minzip/microcookiepkg/latest)
+![](https://img.shields.io/bundlephobia/minzip/microcookiepkg)
 ![](https://img.shields.io/jsdelivr/gh/hy/10nates/microcookie)
 
 # MicroCookie
