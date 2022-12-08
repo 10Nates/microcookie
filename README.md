@@ -37,7 +37,7 @@ It boils down to compatibility. Not every browser supports max-age, and some bro
 
 - Only the value of the primary key of the cookie is encoded. Everything else is assumed to be clean input.
 - There is no internal namespace conflict management
-- This does not support HttpOnly assignment due to the limitation of being client-side JavScript.
+- This does not support HttpOnly assignment due to the limitation of being client-side JavaScript.
 - This is not guaranteed to be RFC 6265 compliant. However, if you find an incompliant section, it is considered a bug.
 - npm is probably the clunkiest way of using this library. It does work, though.
 - All instructions assume you are running a Unix-based operating system. This probably won't matter if you aren't using npm.
