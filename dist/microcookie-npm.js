@@ -5,21 +5,20 @@ var MicroCookie={
      * @param {string} k key
      * @returns {string|undefined} value of key
      */
-get:function(k){k=new RegExp(k+"=(.+?)(;|$)"),k=document.cookie.match(k);return k?decodeURIComponent(k[1]):undefined},
+get:function(k){return(k=document.cookie.match(new RegExp(k+"=(.+?)(;|$)")))?decodeURIComponent(k[1]):undefined},
 /**
      * @description Set a cookie
      * @param {string} k key - to prevent issues, only use alphanumeric characters
      * @param {string} v value - what the key will be set to
-     * @param {number} e expiration - Unix timestamp (ms)
+     * @param {number|string|null} e expiration - Unix timestamp (ms) or date string, removed after session if initialized null
      * @param {object} o optional configuration for path, domain, secure, httpOnly, & sameSite
-     * @param {string} o.path - restricts cookie to path
+     * @param {string} o.path - restricts (or loosens) cookie to path
      * @param {string} o.domain - restricts (or loosens) cookie to subdomain
      * @param {true} o.secure - only allow cookie on HTTPS connection
-     * @param {true} o.httpOnly - do not allow cookie to be read & written to using JS after invocation
      * @param {"None"|"Lax"|"Strict"} o.sameSite - cookie cross-site options, "None" typically requires "secure"
      * @returns {string} the encoded cookie string as a receipt
      */
-set:function(k,v,e,o={}){var n,e=new Date(e).toUTCString(),t=k+"="+encodeURIComponent(v)+"; expires="+e;for(n in o)t+=o[n]?"; "+("boolean"==typeof o[n]?n:n+"="+o[n]):"";return document.cookie=t},
+set:function(k,v,e,o={}){var n,t=k+"="+encodeURIComponent(v)+(null==e?"":"; expires="+new Date(e).toUTCString());for(n in o)t+=o[n]?"; "+("boolean"==typeof o[n]?n:n+"="+o[n]):"";return document.cookie=t},
 /**
      * @description Remove a cookie
      * @param {string} k key of cookie to be removed

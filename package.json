@@ -10,8 +10,8 @@
   "scripts": {
     "htmlprep": "sed -i \"\" -e 's/module\\.exports=MicroCookie;//g' dist/microcookie-min.js",
     "distprep": "if [ ! -d  dist ]; then mkdir dist; fi",
-    "uglyhtm": "uglifyjs microcookie.js -o dist/microcookie-min.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments -c passes=5 --ie --v8 && npm run-script htmlprep",
-    "uglynpm": "uglifyjs microcookie.js -o dist/microcookie-npm.js -m reserved=\\[k,v,p,e,s,d,h,x,w,m,y\\] --comments /@/ -c passes=5 --ie --v8 ",
+    "uglyhtm": "uglifyjs microcookie.js -o dist/microcookie-min.js -m reserved=\\[k,v,p,e,o,d,w,m,y\\] --comments -c passes=5 --ie --v8 && npm run-script htmlprep",
+    "uglynpm": "uglifyjs microcookie.js -o dist/microcookie-npm.js -m reserved=\\[k,v,p,e,o,d,w,m,y\\] --comments /@/ -c passes=5 --ie --v8 ",
     "prepublishOnly": "npm run-script distprep && npm run-script uglyhtm && npm run-script uglynpm"
   },
   "files": [

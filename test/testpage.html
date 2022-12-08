@@ -6,39 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MicroCookie Test</title>
-    <script src="../dist/microcookie-min.js"></script>
-    <script>
 
-        function showCookie(cookie) {
-            alert(MicroCookie.get(cookie))
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: auto auto auto;
         }
 
-        function addCookie(cookie, value, days) {
+        #c {
+            text-align: center;
+        }
+
+        button {
+            display: inline-grid;
+        }
+
+        #out {
+            font-family: monospace;
+            text-align: center;
+        }
+    </style>
+
+    <script src="../dist/microcookie-min.js"></script>
+    <script>
+        function showCookie(cookie) {
+            var c = MicroCookie.get(cookie)
+            console.log(c)
+            document.getElementById("out").innerHTML = c
+        }
+
+        function addCookie(cookie, value, days, options) {
             let expiration = MicroCookie.makeExpiration(days)
-            MicroCookie.set(cookie, value, expiration)
+            MicroCookie.set(cookie, value, expiration, options)
 
             //show timestamp & new cookie values.
             console.log(expiration)
             console.log(document.cookie)
         }
 
-        function deleteCookie(cookie) {
-            MicroCookie.remove(cookie)
+        function deleteCookie(cookie, path) {
+            MicroCookie.remove(cookie, path)
         }
-
     </script>
 </head>
 
 <body>
-    <p>This page is an test integration for the MicroCookie JS library.</p>
+    <br>
+    <div id="c"><p>This page is a test integration for the MicroCookie JS library.</p></div>
+    <br>
+
     <button onclick="showCookie('test')">Show "test" cookie</button>
     <button onclick="showCookie('test2')">Show "test2" cookie</button>
+    <button onclick="showCookie('test3')">Show "test3" cookie</button>
+
+    <button onclick="addCookie('test', 'this is a test!', 1)">Add "test" cookie <br>expiring in 1 day</button>
+    <button onclick="addCookie('test2', 'this is another test!', 2)">Add "test2" cookie <br>expiring in 2 days</button>
+    <button onclick="addCookie('test3', 'this is the third test!', 3, {path: '/' })">Add "test2" cookie expiring <br>in 3 days and path is "/"</button>
+
+    <button onclick="deleteCookie('test')">Delete "test" cookie <br>with no path specified</button>
+    <button onclick="deleteCookie('test2')">Delete "test2" cookie <br>with no path specified</button>
+    <button onclick="deleteCookie('test3')">Delete "test3" cookie <br>with no path specified</button>
+
+    <button onclick="deleteCookie('test', '/')">Delete "test" cookie <br>with / path specified</button>
+    <button onclick="deleteCookie('test2', '/')">Delete "test2" cookie <br>with / path specified</button>
+    <button onclick="deleteCookie('test3', '/')">Delete "test3" cookie <br>with / path specified</button>
+
     <br>
-    <button onclick="addCookie('test', 'this is a test!', 1)">Add "test" cookie expiring in 1 day</button>
-    <button onclick="addCookie('test2', 'this is another test!', 2)">Add "test2" cookie expiring in 2 days</button>
+    <p>Output: <span id="out"></span></p>
     <br>
-    <button onclick="deleteCookie('test')">Delete "test" cookie</button>
-    <button onclick="deleteCookie('test2')">Delete "test2" cookie</button>
 </body>
 
 </html>

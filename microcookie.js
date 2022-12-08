@@ -10,34 +10,33 @@ var MicroCookie = {
      */
     get: function (k) {
         //Simultaneously search cookies and extract value using RegEx
-        var cookieRegExp = new RegExp(k + '=(.+?)(;|$)') // example=something%20something; OR example=something%20something EOS
+        //var cookieRegExp = new RegExp(k + '=(.+?)(;|$)') // example=something%20something; OR example=something%20something EOS
 
-        var find = document.cookie.match(cookieRegExp)
-        return find ? decodeURIComponent(find[1]) : undefined // capture group 1
+        var find; // Combine everything in a way that Uglify couldn't figure out, reduces size
+            // find = match(cookieRegExp), if find, then return decoded value of find, else return undefined
+        return (find = document.cookie.match(new RegExp(k + '=(.+?)(;|$)'))) ? decodeURIComponent(find[1]) : undefined // capture group 1
     },
 
     /**
      * @description Set a cookie
      * @param {string} k key - to prevent issues, only use alphanumeric characters
      * @param {string} v value - what the key will be set to
-     * @param {number} e expiration - Unix timestamp (ms)
+     * @param {number|string|null} e expiration - Unix timestamp (ms) or date string, removed after session if initialized null
      * @param {object} o optional configuration for path, domain, secure, httpOnly, & sameSite
-     * @param {string} o.path - restricts cookie to path
+     * @param {string} o.path - restricts (or loosens) cookie to path
      * @param {string} o.domain - restricts (or loosens) cookie to subdomain
      * @param {true} o.secure - only allow cookie on HTTPS connection
-     * @param {true} o.httpOnly - do not allow cookie to be read & written to using JS after invocation
      * @param {"None"|"Lax"|"Strict"} o.sameSite - cookie cross-site options, "None" typically requires "secure"
      * @returns {string} the encoded cookie string as a receipt
      */
     set: function (k, v, e, o = {}) {
-        //convert timestamp to RSC spec
-        var dt = new Date(e)
-        var expString = dt.toUTCString()
         //encode value of key to prevent issues
         var setval = encodeURIComponent(v)
-        //put it together
-        var cookiestring = k + "=" + setval + "; expires=" + expString
-        for (var item in o) { // for every objet in the array add the key value pair to the cookie string
+        //put it together                    No expire is defined behavior   convert timestamp to RSC spec
+        var cookiestring = k + "=" + setval + (e==null ? "" : "; expires=" + new Date(e).toUTCString())
+        for (var item in o) {
+            // for every objet in the array add the key value pair to the cookie string
+            //                                 Does not have a value pair if boolean
             cookiestring += o[item] ? "; " + (typeof o[item] === "boolean" ? item : item + "=" + o[item]) : ""
         }
         document.cookie = cookiestring
