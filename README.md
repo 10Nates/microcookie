@@ -108,9 +108,6 @@ Using HTML
 <!-- Stored locally -->
 <script src="path/to/src/microcookie-min.js"></script>
 
-<!-- Stored locally using npm -->
-<script src="node_modules/microcookiepkg/dist/microcookie-min.js"></script>
-
 <!-- Stored on my website (no garunteed reliability) -->
 <script src="https://almostd.one/pkg/microcookie-min.js"></script>
 
