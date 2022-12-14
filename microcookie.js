@@ -27,13 +27,17 @@ var MicroCookie = {
      * @param {string} o.domain - restricts (or loosens) cookie to subdomain
      * @param {true} o.secure - only allow cookie on HTTPS connection
      * @param {"None"|"Lax"|"Strict"} o.sameSite - cookie cross-site options, "None" typically requires "secure"
+     * @param {true} o.httpOnly - throw out the cookie and do nothing, not recommended but has niche uses
      * @returns {string} the encoded cookie string as a receipt
      */
     set: function (k, v, e, o = {}) {
         //encode value of key to prevent issues
         var setval = encodeURIComponent(v)
-        //put it together                    No expire is defined behavior   convert timestamp to RSC spec
-        var cookiestring = k + "=" + setval + (e==null ? "" : "; expires=" + new Date(e).toUTCString())
+        //put it together
+        var cookiestring = k + "=" + setval
+        // No expire is defined behavior
+        //              Convert timestamp to RSC spec
+        o.expires = e==null ? e : new Date(e).toUTCString()
         for (var item in o) {
             // for every objet in the array add the key value pair to the cookie string
             //                                 Does not have a value pair if boolean

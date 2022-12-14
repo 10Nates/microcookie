@@ -16,9 +16,10 @@ get:function(k){return(k=document.cookie.match(new RegExp(k+"=(.+?)(;|$)")))?dec
      * @param {string} o.domain - restricts (or loosens) cookie to subdomain
      * @param {true} o.secure - only allow cookie on HTTPS connection
      * @param {"None"|"Lax"|"Strict"} o.sameSite - cookie cross-site options, "None" typically requires "secure"
+     * @param {true} o.httpOnly - throw out the cookie and do nothing, not recommended but has niche uses
      * @returns {string} the encoded cookie string as a receipt
      */
-set:function(k,v,e,o={}){var n,t=k+"="+encodeURIComponent(v)+(null==e?"":"; expires="+new Date(e).toUTCString());for(n in o)t+=o[n]?"; "+("boolean"==typeof o[n]?n:n+"="+o[n]):"";return document.cookie=t},
+set:function(k,v,e,o={}){var n,t=k+"="+encodeURIComponent(v);for(n in o.expires=null==e?e:new Date(e).toUTCString(),o)t+=o[n]?"; "+("boolean"==typeof o[n]?n:n+"="+o[n]):"";return document.cookie=t},
 /**
      * @description Remove a cookie
      * @param {string} k key of cookie to be removed

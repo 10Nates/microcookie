@@ -1,6 +1,6 @@
 {
   "name": "microcookiepkg",
-  "version": "1.1.0-b",
+  "version": "1.1.1",
   "description": "MicroCookie - A minuscule cookie library. Nothing but bones. Compatible with every single browser.",
   "main": "dist/microcookie-npm.js",
   "repository": {
